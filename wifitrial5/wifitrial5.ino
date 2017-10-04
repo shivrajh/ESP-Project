@@ -7,6 +7,8 @@ SoftwareSerial esp8266(10,11); // make RX Arduino line is pin 2, make TX Arduino
                              // and the RX line from the esp to the Arduino's pin 3
   const String on PROGMEM="ON";
   const String off PROGMEM="OFF";
+
+  // ***DO NOT USE PIN 10 AND 11.. SINCE THEY ARE THE RX AND TX FOR ESP8266***
   
   const String webpage1 PROGMEM= "<!DOCTYPE html><html><body><h1>LED 13 is "; 
   const String webpage2 PROGMEM= "OFF";
@@ -28,7 +30,6 @@ SoftwareSerial esp8266(10,11); // make RX Arduino line is pin 2, make TX Arduino
   String webpage4455= webpage44+webpage55;
   const String webpage66 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='05' value='Toggle05' /></form>";
 
-// DO NOT USE PIN 10 AND 11.. SINCE THEY ARE THE RX AND TX FOR ESP8266
   
   const String webpage41 PROGMEM= "<h1>LED 6 is "; 
   const String webpage51 PROGMEM= "OFF";
