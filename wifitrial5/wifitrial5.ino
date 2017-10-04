@@ -13,25 +13,27 @@ SoftwareSerial esp8266(10,11); // make RX Arduino line is pin 2, make TX Arduino
   String webpage12= webpage1+webpage2;
   const String webpage3 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='13' value='Toggle13' /></form>";
   
-  const String webpage4 PROGMEM= "<h1>LED 12 is "; 
+  const String webpage4 PROGMEM= "<h1>LED 3 is "; 
   const String webpage5 PROGMEM= "OFF";
   String webpage45= webpage4+webpage5;
-  const String webpage6 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='12' value='Toggle12' /></form>";                       
+  const String webpage6 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='03' value='Toggle03' /></form>";                       
   
-  const String webpage11 PROGMEM= "<h1>LED 11 is "; 
+  const String webpage11 PROGMEM= "<h1>LED 4 is "; 
   const String webpage22 PROGMEM= "OFF";
   String webpage1122= webpage11+webpage22;
-  const String webpage33 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='11' value='Toggle11' /></form>";
+ const String webpage33 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='04' value='Toggle04' /></form>";
   
-  /*const String webpage44 PROGMEM= "<h1>LED 10 is "; 
+  const String webpage44 PROGMEM= "<h1>LED 5 is "; 
   const String webpage55 PROGMEM= "OFF";
   String webpage4455= webpage44+webpage55;
-  const String webpage66 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='10' value='Toggle10' /></form>";*/
+  const String webpage66 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='05' value='Toggle05' /></form>";
+
+// DO NOT USE PIN 10 AND 11.. SINCE THEY ARE THE RX AND TX FOR ESP8266
   
-  const String webpage41 PROGMEM= "<h1>LED 9 is "; 
+  const String webpage41 PROGMEM= "<h1>LED 6 is "; 
   const String webpage51 PROGMEM= "OFF";
   String webpage4151= webpage41+webpage51;
-  const String webpage61 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='9' value='Toggle9' /></form></body></html>";     
+  const String webpage61 PROGMEM= "</h1><form action = "" method = 'post'><input type='submit' name='06' value='Toggle06' /></form></body></html>";     
 void setup()
 {
   Serial.begin(9600);
@@ -40,14 +42,14 @@ void setup()
  
   pinMode(13,OUTPUT);
   digitalWrite(13,LOW);
-  pinMode(12,OUTPUT);
-  digitalWrite(12,LOW);
-   pinMode(9,OUTPUT);
-  digitalWrite(9,LOW);
-  pinMode(11,OUTPUT);
-  digitalWrite(11,LOW);
-  /*pinMode(10,OUTPUT);
-  digitalWrite(10,LOW);*/
+  pinMode(3,OUTPUT);
+  digitalWrite(3,LOW);
+   pinMode(4,OUTPUT);
+  digitalWrite(4,LOW);
+  pinMode(5,OUTPUT);
+  digitalWrite(5,LOW);
+  pinMode(6,OUTPUT);
+  digitalWrite(6,LOW);
   sendData("AT+RST\r\n",2000,DEBUG); // reset module
   sendData("AT+CWMODE=2\r\n",1000,DEBUG); // configure as access point
   sendData("AT+CIFSR\r\n",1000,DEBUG); // get ip address
@@ -86,7 +88,7 @@ void loop()
        ledval=!digitalRead(ledno);
        digitalWrite(ledno,ledval);
        
-       if(ledno==13)
+       if(ledno==13)                        //Since LED is present at pin 13 on the arduino board (to check if the project is working)
        {     if(ledval==0)
              {
                 webpage12=webpage1+off;
@@ -96,7 +98,7 @@ void loop()
                 webpage12=webpage1+on;
              }
        }
-       else if(ledno==12)
+       else if(ledno==3)
        {     if(ledval==0)
              {
                 webpage45=webpage4+off;
@@ -106,7 +108,7 @@ void loop()
                 webpage45=webpage4+on;
              }
        }
-       else if(ledno==11)
+       else if(ledno==4)
        {     if(ledval==0)
              {
                 webpage1122=webpage11+off;
@@ -116,7 +118,7 @@ void loop()
                 webpage1122=webpage11+on;
              }
        }
-       /*else if(ledno==10)
+       else if(ledno==5)
        {     if(ledval==0)
              {
                 webpage4455=webpage44+off;
@@ -125,8 +127,8 @@ void loop()
              {
                 webpage4455=webpage44+on;
              }
-       }*/
-       else if(ledno==9)
+       }
+       else if(ledno==6)
        {     if(ledval==0)
              {
                 webpage4151=webpage41+off;
@@ -137,7 +139,8 @@ void loop()
              }
        }
        
-     }  
+     }
+     sendData("AT+CIFSR\r\n",1000,DEBUG);
      String webpage = webpage12+webpage3;
      String cipSend = "AT+CIPSEND=";
      cipSend += connectionId;
@@ -165,14 +168,14 @@ void loop()
      sendData(cipSendb,1000,DEBUG);
      sendData(webpageb,1000,DEBUG);
 
-     /*String webpagec = webpage4455+webpage66;
+     String webpagec = webpage4455+webpage66;
      String cipSendc = "AT+CIPSEND=";
      cipSendc += connectionId;
      cipSendc += ",";
      cipSendc +=webpagec.length();
      cipSendc +="\r\n";
      sendData(cipSendc,1000,DEBUG);
-     sendData(webpagec,1000,DEBUG);*/
+     sendData(webpagec,1000,DEBUG);
 
      String webpaged = webpage4151+webpage61;
      String cipSendd = "AT+CIPSEND=";
